@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f18c3e2d7fdc47c49bb7a0c7ca9185e5" Name="Diagram1">
+        <EntityTypeShape EntityType="AbsenteDBModel.AbsenteT" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AbsenteDBModel.DocsMotivareT" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AbsenteDBModel.EleviT" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="AbsenteDBModel.MateriiT" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AbsenteDBModel.SemestreT" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AbsenteDBModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="1.75" IsExpanded="true" />
+        <AssociationConnector Association="AbsenteDBModel.FK_AbsenteT_EleviT" ManuallyRouted="false" />
+        <AssociationConnector Association="AbsenteDBModel.FK_AbsenteT_MateriiT" ManuallyRouted="false" />
+        <AssociationConnector Association="AbsenteDBModel.FK_AbsenteT_SemestreT" ManuallyRouted="false" />
+        <AssociationConnector Association="AbsenteDBModel.FK_DocsMotivareT_EleviT" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

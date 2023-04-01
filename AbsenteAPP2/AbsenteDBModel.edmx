@@ -1,0 +1,364 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AbsenteDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AbsenteT">
+          <Key>
+            <PropertyRef Name="AbsentaID" />
+          </Key>
+          <Property Name="AbsentaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SemestrulFK" Type="int" Nullable="false" />
+          <Property Name="ElevFK" Type="int" Nullable="false" />
+          <Property Name="MateriaFK" Type="int" Nullable="false" />
+          <Property Name="Data" Type="date" Nullable="false" />
+          <Property Name="Motivata" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DocsMotivareT">
+          <Key>
+            <PropertyRef Name="DocMotivareID" />
+          </Key>
+          <Property Name="DocMotivareID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ElevFK" Type="int" Nullable="false" />
+          <Property Name="DocMotivare" Type="image" Nullable="false" />
+          <Property Name="DataStart" Type="date" Nullable="false" />
+          <Property Name="DataStop" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EleviT">
+          <Key>
+            <PropertyRef Name="ElevID" />
+          </Key>
+          <Property Name="ElevID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fullname" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MateriiT">
+          <Key>
+            <PropertyRef Name="MaterieID" />
+          </Key>
+          <Property Name="MaterieID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Materia" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SemestreT">
+          <Key>
+            <PropertyRef Name="SemestruID" />
+          </Key>
+          <Property Name="SemestruID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Semestrul" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Anul" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DataStart" Type="date" Nullable="false" />
+          <Property Name="DataStop" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_AbsenteT_EleviT">
+          <End Role="EleviT" Type="Self.EleviT" Multiplicity="1" />
+          <End Role="AbsenteT" Type="Self.AbsenteT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EleviT">
+              <PropertyRef Name="ElevID" />
+            </Principal>
+            <Dependent Role="AbsenteT">
+              <PropertyRef Name="ElevFK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AbsenteT_MateriiT">
+          <End Role="MateriiT" Type="Self.MateriiT" Multiplicity="1" />
+          <End Role="AbsenteT" Type="Self.AbsenteT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MateriiT">
+              <PropertyRef Name="MaterieID" />
+            </Principal>
+            <Dependent Role="AbsenteT">
+              <PropertyRef Name="MateriaFK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AbsenteT_SemestreT">
+          <End Role="SemestreT" Type="Self.SemestreT" Multiplicity="1" />
+          <End Role="AbsenteT" Type="Self.AbsenteT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SemestreT">
+              <PropertyRef Name="SemestruID" />
+            </Principal>
+            <Dependent Role="AbsenteT">
+              <PropertyRef Name="SemestrulFK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DocsMotivareT_EleviT">
+          <End Role="EleviT" Type="Self.EleviT" Multiplicity="1" />
+          <End Role="DocsMotivareT" Type="Self.DocsMotivareT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EleviT">
+              <PropertyRef Name="ElevID" />
+            </Principal>
+            <Dependent Role="DocsMotivareT">
+              <PropertyRef Name="ElevFK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AbsenteDBModelStoreContainer">
+          <EntitySet Name="AbsenteT" EntityType="Self.AbsenteT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DocsMotivareT" EntityType="Self.DocsMotivareT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EleviT" EntityType="Self.EleviT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MateriiT" EntityType="Self.MateriiT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SemestreT" EntityType="Self.SemestreT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AbsenteT_EleviT" Association="Self.FK_AbsenteT_EleviT">
+            <End Role="EleviT" EntitySet="EleviT" />
+            <End Role="AbsenteT" EntitySet="AbsenteT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AbsenteT_MateriiT" Association="Self.FK_AbsenteT_MateriiT">
+            <End Role="MateriiT" EntitySet="MateriiT" />
+            <End Role="AbsenteT" EntitySet="AbsenteT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AbsenteT_SemestreT" Association="Self.FK_AbsenteT_SemestreT">
+            <End Role="SemestreT" EntitySet="SemestreT" />
+            <End Role="AbsenteT" EntitySet="AbsenteT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DocsMotivareT_EleviT" Association="Self.FK_DocsMotivareT_EleviT">
+            <End Role="EleviT" EntitySet="EleviT" />
+            <End Role="DocsMotivareT" EntitySet="DocsMotivareT" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AbsenteDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AbsenteT">
+          <Key>
+            <PropertyRef Name="AbsentaID" />
+          </Key>
+          <Property Name="AbsentaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SemestrulFK" Type="Int32" Nullable="false" />
+          <Property Name="ElevFK" Type="Int32" Nullable="false" />
+          <Property Name="MateriaFK" Type="Int32" Nullable="false" />
+          <Property Name="Data" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Motivata" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="EleviT" Relationship="Self.FK_AbsenteT_EleviT" FromRole="AbsenteT" ToRole="EleviT" />
+          <NavigationProperty Name="MateriiT" Relationship="Self.FK_AbsenteT_MateriiT" FromRole="AbsenteT" ToRole="MateriiT" />
+          <NavigationProperty Name="SemestreT" Relationship="Self.FK_AbsenteT_SemestreT" FromRole="AbsenteT" ToRole="SemestreT" />
+        </EntityType>
+        <EntityType Name="DocsMotivareT">
+          <Key>
+            <PropertyRef Name="DocMotivareID" />
+          </Key>
+          <Property Name="DocMotivareID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ElevFK" Type="Int32" Nullable="false" />
+          <Property Name="DocMotivare" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="DataStart" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DataStop" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="EleviT" Relationship="Self.FK_DocsMotivareT_EleviT" FromRole="DocsMotivareT" ToRole="EleviT" />
+        </EntityType>
+        <EntityType Name="EleviT">
+          <Key>
+            <PropertyRef Name="ElevID" />
+          </Key>
+          <Property Name="ElevID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fullname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AbsenteT" Relationship="Self.FK_AbsenteT_EleviT" FromRole="EleviT" ToRole="AbsenteT" />
+          <NavigationProperty Name="DocsMotivareT" Relationship="Self.FK_DocsMotivareT_EleviT" FromRole="EleviT" ToRole="DocsMotivareT" />
+        </EntityType>
+        <EntityType Name="MateriiT">
+          <Key>
+            <PropertyRef Name="MaterieID" />
+          </Key>
+          <Property Name="MaterieID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Materia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AbsenteT" Relationship="Self.FK_AbsenteT_MateriiT" FromRole="MateriiT" ToRole="AbsenteT" />
+        </EntityType>
+        <EntityType Name="SemestreT">
+          <Key>
+            <PropertyRef Name="SemestruID" />
+          </Key>
+          <Property Name="SemestruID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Semestrul" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DataStart" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DataStop" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="AbsenteT" Relationship="Self.FK_AbsenteT_SemestreT" FromRole="SemestreT" ToRole="AbsenteT" />
+          <Property Name="Anul" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_AbsenteT_EleviT">
+          <End Role="EleviT" Type="Self.EleviT" Multiplicity="1" />
+          <End Role="AbsenteT" Type="Self.AbsenteT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EleviT">
+              <PropertyRef Name="ElevID" />
+            </Principal>
+            <Dependent Role="AbsenteT">
+              <PropertyRef Name="ElevFK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AbsenteT_MateriiT">
+          <End Role="MateriiT" Type="Self.MateriiT" Multiplicity="1" />
+          <End Role="AbsenteT" Type="Self.AbsenteT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MateriiT">
+              <PropertyRef Name="MaterieID" />
+            </Principal>
+            <Dependent Role="AbsenteT">
+              <PropertyRef Name="MateriaFK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AbsenteT_SemestreT">
+          <End Role="SemestreT" Type="Self.SemestreT" Multiplicity="1" />
+          <End Role="AbsenteT" Type="Self.AbsenteT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SemestreT">
+              <PropertyRef Name="SemestruID" />
+            </Principal>
+            <Dependent Role="AbsenteT">
+              <PropertyRef Name="SemestrulFK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DocsMotivareT_EleviT">
+          <End Role="EleviT" Type="Self.EleviT" Multiplicity="1" />
+          <End Role="DocsMotivareT" Type="Self.DocsMotivareT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EleviT">
+              <PropertyRef Name="ElevID" />
+            </Principal>
+            <Dependent Role="DocsMotivareT">
+              <PropertyRef Name="ElevFK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AbsenteDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AbsenteT" EntityType="Self.AbsenteT" />
+          <EntitySet Name="DocsMotivareT" EntityType="Self.DocsMotivareT" />
+          <EntitySet Name="EleviT" EntityType="Self.EleviT" />
+          <EntitySet Name="MateriiT" EntityType="Self.MateriiT" />
+          <EntitySet Name="SemestreT" EntityType="Self.SemestreT" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <AssociationSet Name="FK_AbsenteT_EleviT" Association="Self.FK_AbsenteT_EleviT">
+            <End Role="EleviT" EntitySet="EleviT" />
+            <End Role="AbsenteT" EntitySet="AbsenteT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AbsenteT_MateriiT" Association="Self.FK_AbsenteT_MateriiT">
+            <End Role="MateriiT" EntitySet="MateriiT" />
+            <End Role="AbsenteT" EntitySet="AbsenteT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AbsenteT_SemestreT" Association="Self.FK_AbsenteT_SemestreT">
+            <End Role="SemestreT" EntitySet="SemestreT" />
+            <End Role="AbsenteT" EntitySet="AbsenteT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DocsMotivareT_EleviT" Association="Self.FK_DocsMotivareT_EleviT">
+            <End Role="EleviT" EntitySet="EleviT" />
+            <End Role="DocsMotivareT" EntitySet="DocsMotivareT" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AbsenteDBModelStoreContainer" CdmEntityContainer="AbsenteDBEntities">
+          <EntitySetMapping Name="AbsenteT">
+            <EntityTypeMapping TypeName="AbsenteDBModel.AbsenteT">
+              <MappingFragment StoreEntitySet="AbsenteT">
+                <ScalarProperty Name="AbsentaID" ColumnName="AbsentaID" />
+                <ScalarProperty Name="SemestrulFK" ColumnName="SemestrulFK" />
+                <ScalarProperty Name="ElevFK" ColumnName="ElevFK" />
+                <ScalarProperty Name="MateriaFK" ColumnName="MateriaFK" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Motivata" ColumnName="Motivata" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DocsMotivareT">
+            <EntityTypeMapping TypeName="AbsenteDBModel.DocsMotivareT">
+              <MappingFragment StoreEntitySet="DocsMotivareT">
+                <ScalarProperty Name="DocMotivareID" ColumnName="DocMotivareID" />
+                <ScalarProperty Name="ElevFK" ColumnName="ElevFK" />
+                <ScalarProperty Name="DocMotivare" ColumnName="DocMotivare" />
+                <ScalarProperty Name="DataStart" ColumnName="DataStart" />
+                <ScalarProperty Name="DataStop" ColumnName="DataStop" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EleviT">
+            <EntityTypeMapping TypeName="AbsenteDBModel.EleviT">
+              <MappingFragment StoreEntitySet="EleviT">
+                <ScalarProperty Name="ElevID" ColumnName="ElevID" />
+                <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MateriiT">
+            <EntityTypeMapping TypeName="AbsenteDBModel.MateriiT">
+              <MappingFragment StoreEntitySet="MateriiT">
+                <ScalarProperty Name="MaterieID" ColumnName="MaterieID" />
+                <ScalarProperty Name="Materia" ColumnName="Materia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SemestreT">
+            <EntityTypeMapping TypeName="AbsenteDBModel.SemestreT">
+              <MappingFragment StoreEntitySet="SemestreT">
+                <ScalarProperty Name="Anul" ColumnName="Anul" />
+                <ScalarProperty Name="SemestruID" ColumnName="SemestruID" />
+                <ScalarProperty Name="Semestrul" ColumnName="Semestrul" />
+                <ScalarProperty Name="DataStart" ColumnName="DataStart" />
+                <ScalarProperty Name="DataStop" ColumnName="DataStop" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="AbsenteDBModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
